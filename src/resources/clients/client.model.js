@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+const { v4: uuid } = require('uuid');
 
 class Client {
   constructor({ id = uuid(), fullName = 'Alamega', address = 'Minsk', numberPhone = 375251234567, bonusCard = false } = {}) {

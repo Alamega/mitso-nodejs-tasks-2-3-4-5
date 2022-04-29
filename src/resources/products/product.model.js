@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+const { v4: uuid } = require('uuid');
 
 class Product {
   constructor({ id = uuid(), name = 'Сырная пицца с сыром', price = 199.9, ageOfIssue = 0, lifeTime = 15  } = {}) {

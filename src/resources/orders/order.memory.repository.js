@@ -35,7 +35,7 @@ const updateById = async ({ id, orderNumber, numbers, clientId, productsId }) =>
   return newOrder;
 };
 
-// const removeUserById = async (id) => {
+// const removeByUserId = async (id) => {
 //   const userOrders = Orders.filter((order) => order.userId === id);
 //   await Promise.allSettled(userOrders.map(async (order) => updateById({ id: order.id, userId: null }))
 //   );
@@ -45,7 +45,7 @@ const updateById = async ({ id, orderNumber, numbers, clientId, productsId }) =>
 //   const boardTasks = Orders.filter((order) => order.boardId === boardId);
 //   await Promise.allSettled(boardTasks.map(async (order) => deleteById(order.id)));
 // };
-
+ // TODO
 module.exports = {
   Orders,
   getAll,
@@ -53,6 +53,6 @@ module.exports = {
   createOrder,
   deleteById,
   updateById,
-//   removeUserById,
+  // removeByUserId,
 //   deleteByBoardId,
 };

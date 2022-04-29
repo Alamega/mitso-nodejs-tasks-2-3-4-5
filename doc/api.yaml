@@ -56,10 +56,10 @@ components:
       bearerFormat: JWT
   
 paths:
-  /client:
+  /clients:
     get:
       tags:
-        - Client
+        - Clients
       summary:  Вернуть всех клиентов в системе
       responses:
         200:
@@ -74,7 +74,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
     post:
       tags:
-        - Client
+        - Clients
       summary:  Cоздаст нового клиента
       requestBody:
         required: true
@@ -103,7 +103,7 @@ paths:
                   $ref: "#/components/schemas/Client"
         401:
           $ref: '#/components/responses/UnauthorizedError'
-  /client/{clientId}:
+  /clients/{clientId}:
     parameters:
       - name: clientId
         in: path
@@ -112,7 +112,7 @@ paths:
           type: string
     get:
       tags:
-        - Client
+        - Clients
       summary: Вернуть данные клиента с заданным clientId
       responses:
         200:
@@ -125,7 +125,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
     put:
       tags:
-        - Client
+        - Clients
       summary: Обновить данные клиента с заданным clientId
       requestBody:
         required: true
@@ -154,7 +154,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
     delete:
       tags:
-        - Client
+        - Clients
       summary: Удалить клиента с заданным clientId
       responses:
         200:
@@ -165,7 +165,7 @@ paths:
                 $ref: "#/components/schemas/Client"
         401:
           $ref: '#/components/responses/UnauthorizedError'      
-  /client/{clientId}/order:
+  /clients/{clientId}/order:
     parameters:
       - name: clientId
         in: path
@@ -174,7 +174,7 @@ paths:
           type: string
     get:
       tags:
-        - Client
+        - Clients
       summary: Вернуть все заказы связанные с клиентом c clientId
       responses:
         200:
@@ -187,7 +187,7 @@ paths:
                   $ref: '#/components/schemas/Orders'
         401:
           $ref: '#/components/responses/UnauthorizedError'
-  /order:
+  /orders:
     get:
       tags:
         - Order
@@ -234,7 +234,7 @@ paths:
                   $ref: "#/components/schemas/Client"
         401:
           $ref: '#/components/responses/UnauthorizedError'
-  /order/{orderId}:
+  /orders/{orderId}:
     parameters:
       - name: orderId
         in: path
@@ -296,7 +296,7 @@ paths:
                 $ref: "#/components/schemas/Orders"
         401:
           $ref: '#/components/responses/UnauthorizedError'   
-  /order/{orderId}/products:
+  /orders/{orderId}/products:
     parameters:
       - name: orderId
         in: path

@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+const { v4: uuid } = require('uuid');
 
 class Order {
   constructor({ id = uuid(), orderNumber = 0, numbers = 0, clientId = 'clientId', productsId = 'productsId' } = {}) {
