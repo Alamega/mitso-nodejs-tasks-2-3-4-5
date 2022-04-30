@@ -14,8 +14,8 @@ router.route('/').get(
 
 router.route('/').post(
   catchErrors(async (req, res) => {
-    const { fullName, address, numberPhone, bonusCard } = req.body;
-    const product = await productsService.createProduct({ fullName, address, numberPhone, bonusCard });
+    const { name, price, ageOfIssue, lifeTime } = req.body;
+    const product = await productsService.createProduct({ name, price, ageOfIssue, lifeTime });
 
     if (product) {
       res.status(StatusCodes.CREATED).json(Product.toResponse(product));

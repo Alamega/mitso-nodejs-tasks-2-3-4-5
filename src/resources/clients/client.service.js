@@ -10,8 +10,8 @@ const createClient = ({ fullName, address, numberPhone, bonusCard }) => clientsR
 const deleteById = async (id) => {
   const userDeletable = await getById(id);
   clientsRepo.deleteById(id);
-  ordersRepo.removeByUserId(id); // TODO
-  return userDeletable; 
+  ordersRepo.removeByClientId(id);
+  return userDeletable;
 };
 
 const updateById = ({ id, fullName, address, numberPhone, bonusCard }) => clientsRepo.updateById({ id, fullName, address, numberPhone, bonusCard });

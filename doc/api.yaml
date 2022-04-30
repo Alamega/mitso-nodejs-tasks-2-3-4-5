@@ -32,7 +32,7 @@ components:
           type: integer
         clientId:
           type: string
-        productId:
+        productsId:
           type: string
     Products:
       properties:
@@ -190,7 +190,7 @@ paths:
   /orders:
     get:
       tags:
-        - Order
+        - Orders
       summary: Вернуть все заказы в системе
       responses:
         200:
@@ -205,7 +205,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
     post:
       tags:
-        - Order
+        - Orders
       summary:  Создать заказ и привязать его к существующему клиенту
       requestBody:
         required: true
@@ -221,7 +221,7 @@ paths:
                   type: integer
                 clientId:
                   type: string
-                productId:
+                productsId:
                   type: string
       responses:
         200:
@@ -231,7 +231,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Client"
+                  $ref: "#/components/schemas/Orders"
         401:
           $ref: '#/components/responses/UnauthorizedError'
   /orders/{orderId}:
@@ -243,7 +243,7 @@ paths:
           type: string
     get:
       tags:
-        - Order
+        - Orders
       summary: Вернуть заказ с заданным orderId
       responses:
         200:
@@ -256,7 +256,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
     put:
       tags:
-        - Order
+        - Orders
       summary: Обновить заказ с заданным orderId
       requestBody:
         required: true
@@ -285,7 +285,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
     delete:
       tags:
-        - Order
+        - Orders
       summary: Удалить заказ с заданным orderId
       responses:
         200:
@@ -305,7 +305,7 @@ paths:
           type: string
     get:
       tags:
-        - Order
+        - Orders
       summary: Вернуть все товары по заданному orderId
       responses:
         200:
@@ -337,7 +337,7 @@ paths:
     post:
       tags:
         - Products
-      summary:  Добавить товар и привязать его к существующему заказу
+      summary:  Добавить товар
       requestBody:
         required: true
         content:
@@ -362,7 +362,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Client"
+                  $ref: "#/components/schemas/Products"
         401:
           $ref: '#/components/responses/UnauthorizedError'
   /products/{productsId}:
@@ -419,7 +419,7 @@ paths:
     delete:
       tags:
         - Products
-      summary: Удалить заказ с заданным productsId
+      summary: Удалить продукт с заданным productsId
       responses:
         200:
           description: Successful operation

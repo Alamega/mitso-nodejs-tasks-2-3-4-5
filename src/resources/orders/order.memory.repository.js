@@ -35,17 +35,20 @@ const updateById = async ({ id, orderNumber, numbers, clientId, productsId }) =>
   return newOrder;
 };
 
-// const removeByUserId = async (id) => {
-//   const userOrders = Orders.filter((order) => order.userId === id);
-//   await Promise.allSettled(userOrders.map(async (order) => updateById({ id: order.id, userId: null }))
-//   );
-// };
+const removeByClientId = async (id) => {
+  const clientOrders = Orders.filter((order) => order.clientId === id);
+  for (let i = 0; i < clientOrders.length; i++) {
+    deleteById(clientOrders[i].id);
+  }
+};
 
-// const deleteByBoardId = async (boardId) => {
-//   const boardTasks = Orders.filter((order) => order.boardId === boardId);
-//   await Promise.allSettled(boardTasks.map(async (order) => deleteById(order.id)));
-// };
- // TODO
+const removeByProductId = async (id) => {
+  const productOrders = Orders.filter((order) => order.productsId === id);
+  for (let i = 0; i < productOrders.length; i++) {
+    deleteById(productOrders[i].id);
+  }
+};
+
 module.exports = {
   Orders,
   getAll,
@@ -53,6 +56,6 @@ module.exports = {
   createOrder,
   deleteById,
   updateById,
-  // removeByUserId,
-//   deleteByBoardId,
+  removeByClientId,
+  removeByProductId
 };

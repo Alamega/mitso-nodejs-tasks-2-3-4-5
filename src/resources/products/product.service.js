@@ -5,15 +5,15 @@ const getAll = () => productsRepo.getAll();
 
 const getById = (id) => productsRepo.getById(id);
 
-const createProduct = ({ fullName, address, numberPhone, bonusCard }) => productsRepo.createProduct({ fullName, address, numberPhone, bonusCard });
+const createProduct = ({ name, price, ageOfIssue, lifeTime }) => productsRepo.createProduct({ name, price, ageOfIssue, lifeTime });
 
 const deleteById = async (id) => {
   const userDeletable = await getById(id);
   productsRepo.deleteById(id);
-  ordersRepo.removeByUserId(id); // TODO
+  ordersRepo.removeByProductId(id);
   return userDeletable; 
 };
 
-const updateById = ({ id, fullName, address, numberPhone, bonusCard }) => productsRepo.updateById({ id, fullName, address, numberPhone, bonusCard });
+const updateById = ({ id, name, price, ageOfIssue, lifeTime }) => productsRepo.updateById({ id, name, price, ageOfIssue, lifeTime });
 
 module.exports = { getAll, getById, createProduct, deleteById, updateById };
