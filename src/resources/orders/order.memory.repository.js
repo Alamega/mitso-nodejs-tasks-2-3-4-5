@@ -37,16 +37,12 @@ const updateById = async ({ id, orderNumber, numbers, clientId, productsId }) =>
 
 const removeByClientId = async (id) => {
   const clientOrders = Orders.filter((order) => order.clientId === id);
-  for (let i = 0; i < clientOrders.length; i++) {
-    deleteById(clientOrders[i].id);
-  }
+  await Promise.allSettled(clientOrders.map(async (order) => deleteById(order.id)));
 };
 
 const removeByProductId = async (id) => {
   const productOrders = Orders.filter((order) => order.productsId === id);
-  for (let i = 0; i < productOrders.length; i++) {
-    deleteById(productOrders[i].id);
-  }
+  await Promise.allSettled(productOrders.map(async (order) => deleteById(order.id)));
 };
 
 module.exports = {
