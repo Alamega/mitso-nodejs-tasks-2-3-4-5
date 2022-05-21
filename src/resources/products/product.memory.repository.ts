@@ -1,42 +1,55 @@
-const Product = require('./product.model');
+import { TProductModel, TProduct } from './product.type';
+import Product from './product.model';
 
-const Products = [new Product()];
+const PRODUCTS: TProductModel[] = [];
 
-const getAll = async () => Products;
+const getAll = async (): Promise<TProductModel[]> => PRODUCTS;
 
-const getById = async (id) => Products.find((product) => product.id === id);
+const getById = async (id: string): Promise<TProductModel | null> =>
+  PRODUCTS.find((product) => product.id === id) || null;
 
-const createProduct = async ({ id, name, price, ageOfIssue, lifeTime }) => {
-  const product = new Product({ id, name, price, ageOfIssue, lifeTime });
-  Products.push(product);
+const createProduct = async ({
+  name,
+  price,
+  ageOfIssue,
+  lifeTime,
+}: TProduct): Promise<TProductModel> => {
+  const product = new Product({ name, price, ageOfIssue, lifeTime });
+  PRODUCTS.push(product);
   return product;
 };
 
-const deleteById = async (id) => {
-  const productPosition = Products.findIndex((product) => product.id === id);
+const deleteById = async (id: string): Promise<TProductModel | null> => {
+  const productPosition = PRODUCTS.findIndex((user) => user.id === id);
 
   if (productPosition === -1) return null;
 
-  const productDeletable = Products[productPosition];
+  const productDeletable = PRODUCTS[productPosition];
 
-  Products.splice(productPosition, 1);
-  return productDeletable;
+  PRODUCTS.splice(productPosition, 1);
+  return productDeletable!;
 };
 
-const updateById = async ({ id, name, price, ageOfIssue, lifeTime }) => {
-  const productPosition = Products.findIndex((product) => product.id === id);
+const updateById = async ({
+  id,
+  name,
+  price,
+  ageOfIssue,
+  lifeTime,
+}: TProductModel): Promise<TProductModel | null> => {
+  const productPosition = PRODUCTS.findIndex((product) => product.id === id);
 
   if (productPosition === -1) return null;
 
-  const oldProduct = Products[productPosition];
-  const newProduct = { ...oldProduct, name, price, ageOfIssue, lifeTime };
+  const oldProduct = PRODUCTS[productPosition];
+  const newProduct = { ...oldProduct, name, price, ageOfIssue, lifeTime, id };
 
-  Products.splice(productPosition, 1, newProduct);
-  return newProduct;
+  PRODUCTS.splice(productPosition, 1, newProduct);
+  return newProduct!;
 };
 
-module.exports = {
-  Products,
+export default {
+  PRODUCTS,
   getAll,
   getById,
   createProduct,
