@@ -39,7 +39,7 @@ const createClient = async (client: TClient): Promise<TClientModel> =>
 const deleteById = async (id: string): Promise<TClientModel | null> => {
   const clientDeletable = await getById(id);
   clientsRepo.deleteById(id);
-  ordersRepo.removeUserById(id);
+  ordersRepo.removeByClientId(id);
   return clientDeletable;
 };
 

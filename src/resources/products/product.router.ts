@@ -86,4 +86,4 @@ router.route('/:id').delete(
   }),
 );
 
-module.exports = router;
+export default router;

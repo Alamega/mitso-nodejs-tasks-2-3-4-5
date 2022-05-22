@@ -1,57 +1,72 @@
-const Order = require('./order.model');
+import Order from './order.model';
+import { TOrder, TOrderModel } from './order.type';
 
-const Orders = [new Order()];
+const ORDERS: TOrderModel[] = [];
 
-const getAll = async () => Orders;
+const getAll = async (): Promise<TOrderModel[]> => ORDERS;
 
-const getById = async (id) => Orders.find((order) => order.id === id);
+const getById = async (id: string): Promise<TOrderModel | null> =>
+  ORDERS.find((order) => order.id === id) || null;
 
-const createOrder = async ({ id, orderNumber, numbers, clientId, productsId }) => {
-  const order = new Order({ id, orderNumber, numbers, clientId, productsId });
-  Orders.push(order);
+const createOrder = async ({
+  orderNumber,
+  numbers,
+  clientId,
+  productsId,
+}: TOrder): Promise<TOrderModel> => {
+  const order = new Order({
+    orderNumber,
+    numbers,
+    clientId,
+    productsId,
+  });
+  ORDERS.push(order);
   return order;
 };
 
-const deleteById = async (id) => {
-  const orderPosition = Orders.findIndex((order) => order.id === id);
+const deleteById = async (id: string): Promise<TOrderModel | null> => {
+  const boardPosition = ORDERS.findIndex((order) => order.id === id);
 
-  if (orderPosition === -1) return null;
+  if (boardPosition === -1) return null;
 
-  const orderDeletable = Orders[orderPosition];
+  const orderDeletable = ORDERS[boardPosition]!;
 
-  Orders.splice(orderPosition, 1);
+  ORDERS.splice(boardPosition, 1);
   return orderDeletable;
 };
 
-const updateById = async ({ id, orderNumber, numbers, clientId, productsId }) => {
-  const orderPosition = Orders.findIndex((order) => order.id === id);
+const updateById = async ({
+  id,
+  ...payload
+}: Partial<TOrderModel>): Promise<TOrderModel | null> => {
+  const orderPosition = ORDERS.findIndex((order) => order.id === id);
 
   if (orderPosition === -1) return null;
 
-  const oldOrder = Orders[orderPosition];
-  const newOrder = { ...oldOrder, orderNumber, numbers, clientId, productsId };
+  const oldOrder = ORDERS[orderPosition]!;
+  const newOrder = { ...oldOrder, ...payload };
 
-  Orders.splice(orderPosition, 1, newOrder);
+  ORDERS.splice(orderPosition, 1, newOrder);
   return newOrder;
 };
 
-const removeByClientId = async (id) => {
-  const clientOrders = Orders.filter((order) => order.clientId === id);
+const removeByClientId = async (id: string) => {
+  const clientOrders = ORDERS.filter((order) => order.clientId === id);
   await Promise.allSettled(clientOrders.map(async (order) => deleteById(order.id)));
 };
 
-const removeByProductId = async (id) => {
-  const productOrders = Orders.filter((order) => order.productsId === id);
+const removeByProductId = async (id: string) => {
+  const productOrders = ORDERS.filter((order) => order.productsId === id);
   await Promise.allSettled(productOrders.map(async (order) => deleteById(order.id)));
 };
 
-module.exports = {
-  Orders,
+export default {
+  ORDERS,
   getAll,
   getById,
   createOrder,
   deleteById,
   updateById,
   removeByClientId,
-  removeByProductId
+  removeByProductId,
 };
